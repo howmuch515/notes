@@ -1,0 +1,11 @@
+Uuid: b150353ea3d54f61bdc482a4a8470356
+ExtensionType: 1
+Name: Notes
+ScreenVersion: 1.0
+SerialVersion: 1
+MinPlatformVersion: 0
+ProOnly: False
+Author: Austin Lane
+ShortDescription: Lets you take notes and manage external documents from within Burp.
+EntryPoint: build/jar/BurpNotesExtension.jar
+BuildCommand: rm -rf build/classes/* build/jar/* && ant jar
