@@ -20,6 +20,8 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.FileInputStream;
 import java.io.PrintWriter;
 import java.io.OutputStreamWriter;
 import java.io.FileOutputStream;
@@ -458,8 +460,7 @@ public class NotesExtensionOperations{
 				if((file = GetFileFromDialog(false, "TEMPLATE.txt")) != null){
 					textTemplateFile = "";
 					if(file.exists() && file.isFile() && file.canRead()){
-						FileReader input = new FileReader(file);
-						BufferedReader br = new BufferedReader(input);
+						BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
 						String strLine;
 						//Read File Line By Line
 						while ((strLine = br.readLine()) != null)   {
