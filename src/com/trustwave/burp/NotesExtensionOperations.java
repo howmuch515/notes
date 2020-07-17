@@ -21,6 +21,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.OutputStreamWriter;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -540,12 +542,11 @@ public class NotesExtensionOperations{
 				File f;
 				if((f = GetFileFromDialog(true, "TEMPLATE.txt")) != null){
 					try{
-						// Create file 
-						FileWriter fstream = new FileWriter(f);
-						BufferedWriter out = new BufferedWriter(fstream);
-						out.write(data);
-						//Close the output stream
-						out.close();
+						PrintWriter pw = new PrintWriter(
+							new BufferedWriter(new OutputStreamWriter(
+								new FileOutputStream(f), "UTF-8")));
+						pw.print(data);
+						pw.close();
 					} catch (Exception exc){//Catch exception if any
 						errout.println(exc.getMessage());
 					}
