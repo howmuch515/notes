@@ -142,12 +142,12 @@ public class NotesExtensionOperations{
 				//callbacks.saveExtensionSettings(FILE_SAVE_SETTING, currentNotesFile.getPath()); //Update save location in extension settings
 				try{
 					//Create our various Writers
-					FileWriter fw = new FileWriter(f);
-					CSVWriter writer = new CSVWriter(fw);
+					BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f), "UTF-8"));
+					CSVWriter writer = new CSVWriter(bw);
 					//Write out to file and close
 					writer.writeAll(data);
 					writer.close();
-					fw.close();
+					bw.close();
 				} catch(IOException exc){
 					errout.println(exc.getMessage());
 				} 
@@ -168,7 +168,7 @@ public class NotesExtensionOperations{
 				currentNotesFile = file; //Remember the file just opened for saving later
 				ArrayList<String[]> spreadData = new ArrayList<String[]>();
 				if(file.exists() && file.isFile() && file.canRead()){
-						CSVReader reader = new CSVReader(new FileReader(file));
+						CSVReader reader = new CSVReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
 						String[] nextLine;
 						while((nextLine = reader.readNext()) != null){
 							spreadData.add(nextLine);
@@ -475,7 +475,7 @@ public class NotesExtensionOperations{
 				if((file = GetFileFromDialog(false, "TEMPLATE.csv")) != null){
 					spreadsheetTemplateFile = new ArrayList<String[]>();
 					if(file.exists() && file.isFile() && file.canRead()){
-						CSVReader reader = new CSVReader(new FileReader(file));
+						CSVReader reader = new CSVReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
 						String[] nextLine;
 						while((nextLine = reader.readNext()) != null){
 							spreadsheetTemplateFile.add(nextLine);
@@ -581,13 +581,12 @@ public class NotesExtensionOperations{
 				File f;
 				if((f = GetFileFromDialog(true, "TEMPLATE.csv")) != null){
 					try{
-						//Create our various Writers
-						FileWriter fw = new FileWriter(f);
-						CSVWriter writer = new CSVWriter(fw);
+						BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f), "UTF-8"));
+						CSVWriter writer = new CSVWriter(bw);
 						//Write out to file and close
 						writer.writeAll(data);
 						writer.close();
-						fw.close();
+						bw.close();
 					} catch(IOException exc){
 						errout.println(exc.getMessage());
 					} 
