@@ -12,7 +12,7 @@
     <target name="jar">
         <mkdir dir="build/jar"/>
         <jar destfile="build/jar/BurpNotesExtension.jar" basedir="build/classes">
-            <zipfileset includes="**/*.class" src="lib/opencsv-2.3.jar"/>
+            <zipfileset includes="**/*.class" src="lib/opencsv-5.2.jar"/>
             <manifest>
                 <attribute name="Main-Class" value="burp.BurpExtender"/>
             </manifest>

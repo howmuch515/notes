@@ -45,8 +45,11 @@ import burp.IHttpRequestResponse;
 import burp.IHttpRequestResponseWithMarkers;
 import burp.IScanIssue;
 
-import au.com.bytecode.opencsv.CSVReader;
-import au.com.bytecode.opencsv.CSVWriter;
+// import au.com.bytecode.opencsv.CSVReader;
+// import au.com.bytecode.opencsv.CSVWriter;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvException;
 
 public class NotesExtensionOperations{
 	//PROPERTIES
@@ -164,19 +167,29 @@ public class NotesExtensionOperations{
 				currentNotesFile = file; //Remember the file just opened for saving later
 				ArrayList<String[]> spreadData = new ArrayList<String[]>();
 				if(file.exists() && file.isFile() && file.canRead()){
-						CSVReader reader = new CSVReader(new FileReader(file));
-						String[] nextLine;
-						while((nextLine = reader.readNext()) != null){
-							spreadData.add(nextLine);
-						}
-						if(spreadData.size() > 0){
-							SetNotesData(spreadData);
-						}
-						reader.close();
+					stdout.println(1);
+
+					CSVReader reader = new CSVReader(new FileReader(file));
+
+					stdout.println(2);
+
+					String[] nextLine;
+					while((nextLine = reader.readNext()) != null){
+						stdout.println(3);
+						spreadData.add(nextLine);
+					}
+					if(spreadData.size() > 0){
+						SetNotesData(spreadData);
+					}
+					reader.close();
 				}
 			}
-		} catch (IOException exc) {
-			errout.println(exc.getMessage());
+		} catch (Exception e) {
+			errout.println(e.getMessage());
+		// } catch (IOException exc) {
+		// 	errout.println(exc.getMessage());
+		// } catch (CsvException exc) {
+		// 	errout.println(exc.getMessage());
 		}
 	}
 	
@@ -481,8 +494,12 @@ public class NotesExtensionOperations{
 					}
 				}
 			}
-		} catch (IOException exc) {
-			errout.println(exc.getMessage());
+		} catch (Exception e) {
+			errout.println(e.getMessage());
+		// } catch (IOException exc) {
+		// 	errout.println(exc.getMessage());
+		// } catch (CsvException exc) {
+		// 	errout.println(exc.getMessage());
 		}
 	}
 
